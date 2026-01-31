@@ -19,17 +19,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8  # Versione standard usata da Manus
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
 
       - name: Install dependencies
-        # Usiamo --no-package-lock per evitare errori se il file manca
-        run: npm install --no-package-lock
+        run: pnpm install
 
       - name: Build
-        run: npm run build
+        run: pnpm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -37,7 +42,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          # Qui carichiamo la cartella dist/public generata dal tuo vite.config.ts
+          path: './dist/public'
 
       - name: Deploy to GitHub Pages
         id: deployment
