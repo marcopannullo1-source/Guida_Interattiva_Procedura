@@ -4,7 +4,7 @@ import path from "path";
 
 export default defineConfig({
   // Il nome del tuo repository
-  base: '/Guida_Interattiva_Procedura/',
+  base: './',
   
   // La cartella dove si trova il tuo index.html
   root: 'client',
