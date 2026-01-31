@@ -1,8 +1,9 @@
-name: "DEPLOY_FINALE_GUIDA" # Cambia il nome così lo distinguiamo dagli altri!
+name: Deploy static content to Pages
 
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,10 +11,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,13 +20,13 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 8 # Forziamo una versione stabile
 
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          # Rimuoviamo la riga della cache che causava l'errore pnpm store
 
       - name: Install dependencies
         run: pnpm install
@@ -39,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Carichiamo la cartella dist che Vite ha creato nella root
+          # Carichiamo la cartella dist creata da Vite
           path: './dist'
 
       - name: Deploy to GitHub Pages
