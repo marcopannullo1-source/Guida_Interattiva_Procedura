@@ -45,8 +45,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Proviamo a puntare alla cartella esatta definita nel tuo config
-          path: './dist'
+          path: './dist' # Deve puntare alla cartella creata da Vite
 
       - name: Deploy to GitHub Pages
         id: deployment
