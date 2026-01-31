@@ -6,24 +6,37 @@ import { defineConfig } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 export default defineConfig({
-  // Fondamentale per GitHub Pages
-  base: '/Guida_Interattiva_Procedura/', 
-  
-  plugins: [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime()],
-  
+  // 1. Base URL per GitHub Pages
+  base: '/Guida_Interattiva_Procedura/',
+
+  // 2. Punto di partenza: la cartella dove si trova il tuo index.html
+  root: path.resolve(import.meta.dirname, "client"),
+
+  plugins: [
+    react(),
+    tailwindcss(),
+    jsxLocPlugin(),
+    vitePluginManusRuntime()
+  ],
+
   resolve: {
     alias: {
-      // Punta alla cartella src che hai visto
-      "@": path.resolve(import.meta.dirname, "client", "src"),
+      // Puntiamo solo a quello che esiste sicuramente
+      "@": path.resolve(import.meta.dirname, "client/src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
     },
   },
-  
-  // Diciamo a Vite che il file index.html si trova dentro 'client'
-  root: path.resolve(import.meta.dirname, "client"),
-  
+
   build: {
-    // I file pronti per il web verranno creati qui
+    // 3. Mettiamo il risultato finale nella cartella 'dist' nella root del progetto
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
+    
+    // 4. Specifichiamo l'ingresso in modo esplicito
+    rollupOptions: {
+      input: {
+        main: path.resolve(import.meta.dirname, "client/index.html"),
+      },
+    },
   },
 });
