@@ -42,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Qui carichiamo la cartella dist/public generata dal tuo vite.config.ts
+          # Proviamo a puntare alla cartella esatta definita nel tuo config
           path: './dist/public'
 
       - name: Deploy to GitHub Pages
