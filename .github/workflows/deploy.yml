@@ -34,10 +34,8 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: |
-          pnpm run build
-          echo "CONTENUTO CARTELLA DIST:"
-          ls -R dist
+        # Usiamo 'exec vite build' per saltare la parte server del package.json
+        run: pnpm exec vite build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
