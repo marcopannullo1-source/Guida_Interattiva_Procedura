@@ -3,18 +3,14 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig({
-  // Usiamo il nome del repo per sicurezza estrema
+  // Base deve corrispondere al nome del tuo repository su GitHub
   base: '/Guida_Interattiva_Procedura/',
   
-  root: path.resolve(__dirname, 'client'), // Usa il percorso assoluto
+  root: 'client', // Vite entrerà nella cartella client
   build: {
-    outDir: path.resolve(__dirname, 'dist'), // Forza l'uscita in dist alla radice
+    // Dato che la root è 'client', l'output deve uscire di un livello per andare in 'dist'
+    outDir: '../dist',
     emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'client/index.html'),
-      },
-    },
   },
   plugins: [react()],
   resolve: {
