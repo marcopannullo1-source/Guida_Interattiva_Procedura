@@ -6,11 +6,12 @@ import { defineConfig } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 export default defineConfig({
+  // Il nome del tuo repository su GitHub
   base: '/Guida_Interattiva_Procedura/',
-  
-  // Dove si trova il file index.html
-  root: path.resolve(__dirname, "client"),
-  
+
+  // Diciamo a Vite che il progetto è dentro la cartella 'client'
+  root: 'client',
+
   plugins: [
     react(),
     tailwindcss(),
@@ -20,16 +21,16 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client/src"),
-      "@shared": path.resolve(__dirname, "shared"),
+      "@": path.resolve(__dirname, "./client/src"),
+      "@shared": path.resolve(__dirname, "./shared"),
     },
   },
 
   build: {
-    // Esce dalla cartella client e crea 'dist' nella root
-    outDir: path.resolve(__dirname, "dist"),
+    // Diciamo a Vite di uscire da 'client' e creare 'dist' nella cartella principale
+    outDir: '../dist',
     emptyOutDir: true,
-    // Forza Vite a usare index.html come ingresso
+    // Poiché siamo già in 'root: client', l'ingresso è semplicemente index.html
     rollupOptions: {
       input: path.resolve(__dirname, "client/index.html"),
     },
