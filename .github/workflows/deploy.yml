@@ -1,4 +1,4 @@
-name: Deploy static content to Pages
+name: "DEPLOY_FINALE_GUIDA" # Cambia il nome così lo distinguiamo dagli altri!
 
 on:
   push:
