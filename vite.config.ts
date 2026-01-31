@@ -6,22 +6,11 @@ import { defineConfig } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 export default defineConfig({
-  // Base corretta per GitHub Pages
   base: '/Guida_Interattiva_Procedura/',
-
-  // Vite deve "vivere" dentro la cartella client
+  
+  // Dove si trova il file index.html
   root: path.resolve(__dirname, "client"),
   
-  // Ma deve "sputare" i file fuori, nella cartella dist della root
-  build: {
-    outDir: path.resolve(__dirname, "dist"),
-    emptyOutDir: true,
-    // Questo assicura che l'index.html venga trattato come file principale
-    rollupOptions: {
-      input: path.resolve(__dirname, "client/index.html"),
-    },
-  },
-
   plugins: [
     react(),
     tailwindcss(),
@@ -33,6 +22,16 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "client/src"),
       "@shared": path.resolve(__dirname, "shared"),
+    },
+  },
+
+  build: {
+    // Esce dalla cartella client e crea 'dist' nella root
+    outDir: path.resolve(__dirname, "dist"),
+    emptyOutDir: true,
+    // Forza Vite a usare index.html come ingresso
+    rollupOptions: {
+      input: path.resolve(__dirname, "client/index.html"),
     },
   },
 });
