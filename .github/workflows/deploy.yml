@@ -10,8 +10,12 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  build_and_deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,13 +24,12 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 8 # Forziamo una versione stabile
+          version: 8
 
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # Rimuoviamo la riga della cache che causava l'errore pnpm store
 
       - name: Install dependencies
         run: pnpm install
@@ -34,10 +37,12 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Carichiamo la cartella dist creata da Vite
           path: './dist'
 
       - name: Deploy to GitHub Pages
