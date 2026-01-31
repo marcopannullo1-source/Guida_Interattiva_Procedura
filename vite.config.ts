@@ -1,38 +1,26 @@
-import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
-import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
 import { defineConfig } from "vite";
-import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+import path from "path";
 
 export default defineConfig({
-  // Il nome del tuo repository su GitHub
+  // Il nome del tuo repository
   base: '/Guida_Interattiva_Procedura/',
-
-  // Diciamo a Vite che il progetto è dentro la cartella 'client'
+  
+  // La cartella dove si trova il tuo index.html
   root: 'client',
 
-  plugins: [
-    react(),
-    tailwindcss(),
-    jsxLocPlugin(),
-    vitePluginManusRuntime()
-  ],
-
+  build: {
+    // Esci da 'client' e scrivi tutto in 'dist' nella root
+    outDir: '../dist',
+    emptyOutDir: true,
+  },
+  
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client/src"),
       "@shared": path.resolve(__dirname, "./shared"),
     },
   },
-
-  build: {
-    // Diciamo a Vite di uscire da 'client' e creare 'dist' nella cartella principale
-    outDir: '../dist',
-    emptyOutDir: true,
-    // Poiché siamo già in 'root: client', l'ingresso è semplicemente index.html
-    rollupOptions: {
-      input: path.resolve(__dirname, "client/index.html"),
-    },
-  },
+  // Se avevi altri plugin (manus, tailwind), aggiungili qui sotto
+  plugins: [react()],
 });
