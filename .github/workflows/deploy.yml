@@ -22,7 +22,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 8  # Versione standard usata da Manus
+          version: 8
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -34,16 +34,13 @@ jobs:
         run: pnpm install
 
       - name: Build
-        # Usiamo 'exec vite build' per saltare la parte server del package.json
-        run: pnpm exec vite build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+        run: pnpm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # Deve puntare alla cartella creata da Vite
+          # Carichiamo la cartella dist che Vite ha creato nella root
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
