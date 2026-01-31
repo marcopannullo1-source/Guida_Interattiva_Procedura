@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Proviamo a puntare alla cartella esatta definita nel tuo config
-          path: './dist/public'
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
