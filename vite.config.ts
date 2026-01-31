@@ -6,11 +6,21 @@ import { defineConfig } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 export default defineConfig({
-  // 1. Base URL per GitHub Pages
+  // Base corretta per GitHub Pages
   base: '/Guida_Interattiva_Procedura/',
 
-  // 2. Punto di partenza: la cartella dove si trova il tuo index.html
-  root: path.resolve(import.meta.dirname, "client"),
+  // Vite deve "vivere" dentro la cartella client
+  root: path.resolve(__dirname, "client"),
+  
+  // Ma deve "sputare" i file fuori, nella cartella dist della root
+  build: {
+    outDir: path.resolve(__dirname, "dist"),
+    emptyOutDir: true,
+    // Questo assicura che l'index.html venga trattato come file principale
+    rollupOptions: {
+      input: path.resolve(__dirname, "client/index.html"),
+    },
+  },
 
   plugins: [
     react(),
@@ -21,22 +31,8 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      // Puntiamo solo a quello che esiste sicuramente
-      "@": path.resolve(import.meta.dirname, "client/src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-    },
-  },
-
-  build: {
-    // 3. Mettiamo il risultato finale nella cartella 'dist' nella root del progetto
-    outDir: path.resolve(import.meta.dirname, "dist"),
-    emptyOutDir: true,
-    
-    // 4. Specifichiamo l'ingresso in modo esplicito
-    rollupOptions: {
-      input: {
-        main: path.resolve(import.meta.dirname, "client/index.html"),
-      },
+      "@": path.resolve(__dirname, "client/src"),
+      "@shared": path.resolve(__dirname, "shared"),
     },
   },
 });
