@@ -16,8 +16,7 @@ concurrency:
 
 defaults:
   run:
-    # Tutti i comandi (install/build) girano dentro client/
-    working-directory: client
+    working-directory: client  # esegui i comandi dentro client/
 
 jobs:
   build:
@@ -30,12 +29,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'pnpm'           # Abilita la cache per pnpm
+          # Puoi lasciare la cache disattivata finché non va tutto ok
+          # cache: 'pnpm'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9              # Usa la major 9 (coerente con pnpm-lock.yaml)
+          version: 9
           run_install: false
 
       - name: Install deps (client/)
@@ -44,11 +44,10 @@ jobs:
       - name: Build (client/)
         run: pnpm run build
 
-      # Torna alla root del repo per caricare l'artifact corretto
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: client/dist       # <<< cartella di output di Vite
+          path: client/dist  # <-- cartella di output di Vite
 
   deploy:
     needs: build
