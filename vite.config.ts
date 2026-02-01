@@ -1,19 +1,23 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite"; // Aggiunto per Tailwind 4
 import path from "path";
 
 export default defineConfig({
   base: '/Guida_Interattiva_Procedura/',
   root: 'client',
-  plugins: [react()],
+  plugins: [
+    react(),
+    tailwindcss(), // Attivazione Tailwind 4
+  ],
   build: {
     outDir: '../dist',
     emptyOutDir: true,
   },
   resolve: {
     alias: {
-      // Allineato a tsconfig.json e alla struttura reale delle cartelle
-      "@": path.resolve(__dirname, "./client/src"), 
+      // Coerente con tsconfig.json e la tua struttura src
+      "@": path.resolve(__dirname, "./client/src"),
       "@shared": path.resolve(__dirname, "./shared"),
     },
   },
