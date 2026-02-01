@@ -33,7 +33,7 @@ jobs:
           # NON specificare "version:" se il package.json ha "packageManager"
           run_install: false
 
-      - name: Install deps (temporaneo: no-frozen-lockfile per sbloccare)
+      - name: Install deps (temporaneo no-frozen-lockfile per sbloccare)
         run: pnpm install --no-frozen-lockfile
 
       - name: Build
