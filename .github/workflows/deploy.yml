@@ -16,7 +16,7 @@ concurrency:
 
 defaults:
   run:
-    working-directory: client  # esegui i comandi dentro client/
+    working-directory: client   # esegue i comandi dentro client/
 
 jobs:
   build:
@@ -29,13 +29,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          # Puoi lasciare la cache disattivata finché non va tutto ok
+          # Lasciamo off la cache finché non è tutto stabile
           # cache: 'pnpm'
 
-      - name: Setup pnpm
+      - name: Setup pnpm (usa la versione dal packageManager di package.json)
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          # NIENTE "version:" qui, così prende pnpm@10.4.1 dal package.json
           run_install: false
 
       - name: Install deps (client/)
@@ -47,7 +47,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: client/dist  # <-- cartella di output di Vite
+          path: client/dist
 
   deploy:
     needs: build
