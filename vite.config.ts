@@ -5,12 +5,15 @@ import path from "path";
 export default defineConfig({
   base: '/Guida_Interattiva_Procedura/',
   root: 'client',
-  },
   plugins: [react()],
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true,
+  },
   resolve: {
     alias: {
-      // Dato che i file sono direttamente in client, @ deve puntare a ./
-      "@": path.resolve(__dirname, "./client"), 
+      // Allineato a tsconfig.json e alla struttura reale delle cartelle
+      "@": path.resolve(__dirname, "./client/src"), 
       "@shared": path.resolve(__dirname, "./shared"),
     },
   },
