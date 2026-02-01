@@ -5,9 +5,6 @@ import path from "path";
 export default defineConfig({
   base: '/Guida_Interattiva_Procedura/',
   root: 'client',
-  build: {
-    outDir: '../dist',
-    emptyOutDir: true,
   },
   plugins: [react()],
   resolve: {
