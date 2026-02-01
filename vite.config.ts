@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite"; // Aggiunto per Tailwind 4
+import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig({
@@ -8,15 +8,15 @@ export default defineConfig({
   root: 'client',
   plugins: [
     react(),
-    tailwindcss(), // Attivazione Tailwind 4
+    tailwindcss(),
   ],
   build: {
-    outDir: '../dist',
+    // Questo è vitale: dice a Vite di mettere i file dove GitHub li aspetta
+    outDir: '../dist', 
     emptyOutDir: true,
   },
   resolve: {
     alias: {
-      // Coerente con tsconfig.json e la tua struttura src
       "@": path.resolve(__dirname, "./client/src"),
       "@shared": path.resolve(__dirname, "./shared"),
     },
