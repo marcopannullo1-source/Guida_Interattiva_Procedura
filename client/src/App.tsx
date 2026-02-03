@@ -28,16 +28,24 @@ function AppRouter() {
 
 function App() {
   return (
-    <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
-        <WorkflowProvider>
-          <TooltipProvider>
-            <Toaster />
-            <AppRouter />
-          </TooltipProvider>
-        </WorkflowProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
+    // Questo "base" dice a tutta l'app di aggiungere il nome del repo a ogni link
+    <Router base="/Guida_Interattiva_Procedura">
+      <ErrorBoundary>
+        <ThemeProvider defaultTheme="light">
+          <WorkflowProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Switch>
+                <Route path="/" component={Home} />
+                <Route path="/satellite-b" component={SatelliteB} />
+                <Route path="/satellite-c" component={SatelliteC} />
+                <Route component={NotFound} />
+              </Switch>
+            </TooltipProvider>
+          </WorkflowProvider>
+        </ThemeProvider>
+      </ErrorBoundary>
+    </Router>
   );
 }
 
